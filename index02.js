@@ -2,6 +2,7 @@
 // LIBRARY - Abstraction seems confusing...
 ///////////////////////////////////////////////////////////////////////////////////////
 const validate = {};
+const valid8 = {};
 
 validate.toBeDefined = _funcWrapper((fn, value) => {
     const type = 'any';
