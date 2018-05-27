@@ -1,51 +1,24 @@
-const ideal = {};
+const fnString = validate.toBeString(function fnString (more) {
+    return 'this is a string' + more;
+});
 
-ideal.toBeAny = any;
+const fnNumber = validate.toBeNumber(function (a = 5, b = 6) {
+    return validate.toBeNumber(a) + validate.toBeNumber(b);
+});
 
-///////////////////////////////////////////////////////////////////////////////////////
-// LIBRARY
-///////////////////////////////////////////////////////////////////////////////////////
-function any () {
-    let args = _processArgs(arguments);
-    let _retval = _processValue(args);
+const fnPromise = validate.toBeNumber(function fnPromise () {
+    return new Promise(resolve => {
+        resolve(5);
+    });
+}, true);
 
-    if (_retval !== undefined) return _retval;
-    else throw Error(`Function '${args[0].name}' must return type 'any'`);
-}
+const result01 = fnString(', plus much, much more!');
+const result02 = fnNumber(15, 12);
+const result03 = fnPromise();
 
-function _processValue (args) {
-    let _fnArgs = [];
+console.log(result01);
+console.log(result02);
 
-    if (args.length === 2) {
-        if (Array.isArray(args[1])) {
-            _fnArgs = args[1];
-        } else {
-            _fnArgs = [args[1]];
-        }
-    }
-
-    if (args.length > 2) {
-        _fnArgs = args.filter((val, i) => i !== 0);
-    }
-
-    if (typeof args[0] === 'function') {
-        return args[0].call(null, ..._fnArgs);
-    } else {
-        return args[0];
-    }
-}
-
-function _processArgs (args) {
-    return [].slice.call(args);
-}
-
-///////////////////////////////////////////////////////////////////////////////////////
-// TEST CODE
-///////////////////////////////////////////////////////////////////////////////////////
-function testFn (a, b) {
-    return (a || 5) + (b || 6);
-}
-
-const result = ideal.toBeAny(testFn, 15);
-
-console.log(result);
+result03.then(result => {
+    console.log(result);
+});
