@@ -17,7 +17,7 @@ module.exports = ({ type, condition, defaultOptions }) => {
     return function (ctx, customOptions) {
         const options = { ...defaultOptions, ...customOptions };
 
-        if (!Object.keys(options).length) options.contextType = 'default';
+        if (!Object.keys(options).length) options.contextType = 'normal';
 
         return contextTypeMethods[options.contextType](ctx, condition, type, options);
     }
