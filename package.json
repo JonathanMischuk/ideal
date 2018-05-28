@@ -4,8 +4,14 @@
   "description": "unit testing?? whuuuuuuut?",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --watch --debug --mode development --config webpack.config.js"
   },
   "author": "Jonathan Mischuk",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^4.9.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^2.1.4"
+  }
 }

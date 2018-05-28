@@ -1,24 +1,21 @@
-const fnString = validate.toBeString(function fnString (more) {
-    return 'this is a string' + more;
-});
+const ideal = require('./src');
 
-const fnNumber = validate.toBeNumber(function (a = 5, b = 6) {
-    return validate.toBeNumber(a) + validate.toBeNumber(b);
-});
-
-const fnPromise = validate.toBeNumber(function fnPromise () {
+const fnNumberAsync = ideal.toBeNumberAsync((a, b) => {
     return new Promise(resolve => {
-        resolve(5);
+        resolve(ideal.toBeNumber(a) + ideal.toBeNumber(b));
     });
-}, true);
+});
 
-const result01 = fnString(', plus much, much more!');
-const result02 = fnNumber(15, 12);
-const result03 = fnPromise();
+const fnNumber = ideal.toBeNumber((a, b) => {
+    return ideal.toBeNumber(a) + ideal.toBeNumber(b);
+});
 
-console.log(result01);
-console.log(result02);
 
-result03.then(result => {
+const numPromise = fnNumberAsync(30, 50);
+const num = fnNumber(35, 65);
+
+numPromise.then(result => {
     console.log(result);
 });
+
+console.log(num);
