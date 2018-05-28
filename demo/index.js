@@ -1,4 +1,4 @@
-const ideal = require('./src');
+const ideal = require('../src');
 
 const fnNumberAsync = ideal.toBeNumberAsync((a, b) => {
     return new Promise(resolve => {
