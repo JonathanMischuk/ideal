@@ -1,14 +1,15 @@
-const utils = require('../utils');
+const { processFunctionValue, processArgs } = require('../utils');
+const { valueTypeError, functionEvaluationTypeError } = require('../errors');
 
 module.exports = (ctx, condition, type) => {
     if (typeof ctx === 'function') {
         return function () {
-            const value = utils.processFunctionValue(ctx, utils.processArgs(arguments));
+            const value = processFunctionValue(ctx, processArgs(arguments));
             if (condition(value, type)) return value;
-            else utils.throwFunctionError(ctx.name, type, value, new Error());
+            else functionEvaluationTypeError(ctx.name, type, value, new Error());
         }
     }
 
     if (condition(ctx, type)) return ctx;
-    else utils.throwError(type, ctx, new Error());
+    else valueTypeError(type, ctx, new Error());
 };
